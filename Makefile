@@ -2,7 +2,7 @@ all: main.out
 
 
 CC=riscv64-linux-gnu-gcc
-GDB=riscv64-linux-gnu-gdb
+GDB=gdb
 
 FLAGS=-pthread -static
 
@@ -13,16 +13,6 @@ FLAGS=-pthread -static
 
 main.out: main.o peterson.o
 	$(CC) $(FLAGS) -o $@ $^
-
-
-.PHONY: debug
-debug: main.out
-	$(GDB) \
-	    -ex 'file main.out' \
-	    -ex 'target sim' \
-	    -ex 'load main.out' \
-	    -ex 'b main' \
-	    -ex 'run'
 
 .PHONY: run
 run: main.out
