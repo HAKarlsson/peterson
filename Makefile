@@ -1,10 +1,10 @@
+.PHONY: all
 all: main.out
 
 
 CC=riscv64-linux-gnu-gcc
-GDB=gdb
 
-FLAGS=-pthread -static
+FLAGS=-pthread -static -O2
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $^ 
@@ -18,6 +18,6 @@ main.out: main.o peterson.o
 run: main.out
 	./main.out
 
-.PHONY: run
+.PHONY: clean
 clean: 
 	rm -f *.out *.da *.o
