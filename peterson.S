@@ -25,7 +25,7 @@ lock:
     slli  t1, a0, 3  
     add   t1, t1, t3  
     sd    t0, %pcrel_lo(1b)(t1) 
-    fence
+    fence # must be here
 
 # t1 = (upper bits of flag) + 8 * a1
     slli  t1, a1, 3     
@@ -35,9 +35,8 @@ lock:
 2:  auipc t2, %pcrel_hi(turn)
 # turn = a1
     sd    a1, %pcrel_lo(2b)(t2)
-
 # Start of while loop
-3:  fence
+3:  fence # must be here
     ld    a2, %pcrel_lo(1b)(t1) 
     beqz  a2, 4f 
     ld    a2, %pcrel_lo(2b)(t2) 
@@ -49,10 +48,11 @@ lock:
 # a0 = 0 \/ a0 = 1
 .align 3
 unlock:
+# set flag[a0] = 0
 1:  auipc t0, %pcrel_hi(flag)
     slli  t1, a0, 3
     add   t1, t1, t0
     sd    zero, %pcrel_lo(1b)(t1)
-    fence
+    fence # this can be removed
     ret
 
