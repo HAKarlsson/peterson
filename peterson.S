@@ -25,7 +25,7 @@ lock:
     slli  t1, a0, 3  
     add   t1, t1, t3  
     sd    t0, %pcrel_lo(1b)(t1) 
-    fence # must be here
+    fence
 
 # t1 = (upper bits of flag) + 8 * a1
     slli  t1, a1, 3     
@@ -36,12 +36,11 @@ lock:
 # turn = a1
     sd    a1, %pcrel_lo(2b)(t2)
 # Start of while loop
-3:  fence # must be here
+3:  fence
     ld    a2, %pcrel_lo(1b)(t1) 
     beqz  a2, 4f 
     ld    a2, %pcrel_lo(2b)(t2) 
-    bne   a2, a1, 4f
-    j     3b 
+    beq   a2, a1, 3b
 4:  ret
 
 # lock(int thread)
@@ -53,6 +52,6 @@ unlock:
     slli  t1, a0, 3
     add   t1, t1, t0
     sd    zero, %pcrel_lo(1b)(t1)
-    fence # this can be removed
+    fence
     ret
 

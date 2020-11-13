@@ -1,8 +1,9 @@
 .PHONY: all
 all: main.out
 
+RISCV_PREFIX ?= riscv64-gnu-gcc
 
-CC=riscv64-linux-gnu-gcc
+CC=$(RISCV_PREFIX)-gcc
 
 FLAGS=-pthread -static -O2
 
