@@ -1,3 +1,4 @@
+// Author: Henrik Karlsson
 #include <stdio.h>
 #include <pthread.h>
 

@@ -1,7 +1,7 @@
 .PHONY: all
 all: main.out
 
-RISCV_PREFIX ?= riscv64-gnu-gcc
+RISCV_PREFIX ?= riscv64-linux-gnu
 
 CC=$(RISCV_PREFIX)-gcc
 
