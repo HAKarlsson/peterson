@@ -16,7 +16,7 @@ make run
 ```
 Or if your toolchain prefix is something else such as `riscv64-unknown-linux-elf`.
 ```
-make run RISCV_PREFIX=riscv64-unknown-linux-gnu
+make run RISCV_LINUX_GNU_PREFIX=riscv64-unknown-linux-gnu
 ```
 
 ### Clean
