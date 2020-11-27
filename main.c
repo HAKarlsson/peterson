@@ -7,6 +7,9 @@
 int counter = 0;
 pthread_t threads[2];
 
+volatile long t1;
+volatile long t2;
+
 extern void lock(long i);
 extern void unlock(long i);
 
