@@ -1,7 +1,4 @@
 # Author: Henrik Karlsson
-# Notes: 
-# replace `fence` instructions with `fence.w.r`
-# when they are implemented.
 
 
 # Globally available functions
@@ -38,9 +35,8 @@ lock:
     sd    a2, %pcrel_lo(1b)(t1) # flag[me] = true
     fence w,w
     sd    a0, %pcrel_lo(2b)(t3) # turn = me
-
 # while(flag[other] && turn = me);
-3:  fence w,r
+3:  fence
     ld    t0, %pcrel_lo(1b)(t2) # t0 = flag[other] 
     beqz  t0, 4f                # t0 == 0? -> exit
     ld    t1, %pcrel_lo(2b)(t3) # t1 = turn
@@ -56,5 +52,4 @@ unlock:
     slli  t1, a0, 3
     add   t0, t0, t1
     sd    zero, %pcrel_lo(1b)(t0) # flag[me] = 0
-    fence w,r
     ret
